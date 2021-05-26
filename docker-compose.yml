@@ -1,0 +1,23 @@
+version: "3"
+   
+services:
+    mail:
+        image: analogic/poste.io:2.2.1
+        restart: unless-stopped
+        ports:
+        - "25:25"
+        - "110:110"
+        - "143:143"
+        - "465:465"
+        - "587:587"
+        - "993:993"
+        - "995:995"
+        expose:
+        - "80"
+        - "443"
+        volumes:
+        - /usr/share/zoneinfo/America/Argentina/Mendoza:/etc/localtime:ro
+        - /root/docker/mail-data:/data
+        - /root/docker/mail/etc/spamassassin/local.cf:/etc/spamassassin/local.cf
+        - /root/docker/volumes/html/.well-known:/opt/www/.well-known
+        env_file: ./.env
